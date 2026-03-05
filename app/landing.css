@@ -3,7 +3,7 @@
   --ink: #eeecec;
   --ink-soft: #8a8a8a;
   --ink-muted: #555555;
-  --surface: #141414;
+  --surface: #0d1224;
   --surface-soft: rgba(255, 255, 255, 0.05);
   --surface-border: rgba(255, 255, 255, 0.09);
   --glass: rgba(255, 255, 255, 0.06);
@@ -35,7 +35,7 @@
   border-bottom: 1px solid var(--surface-border);
   position: sticky;
   top: 0;
-  background: rgba(22, 22, 22, 0.92);
+  background: rgba(13, 18, 36, 0.92);
   backdrop-filter: blur(12px);
   z-index: 100;
 }
