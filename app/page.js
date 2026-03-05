@@ -11,7 +11,7 @@ export default function Page() {
       <CitySelector
         selectedCities={selectedCities}
         onCitiesChange={setSelectedCities}
-        maxCities={2}
+        maxCities={3}
       />
     </main>
   );
