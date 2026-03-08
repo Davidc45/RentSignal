@@ -61,9 +61,15 @@ export default function Page() {
       const { ScrambleTextPlugin } = await import("gsap/ScrambleTextPlugin");
       gsap.registerPlugin(ScrambleTextPlugin);
       const el = document.querySelector(".scramble-word");
-      const tween = gsap.to(el, {duration: 1, scrambleText:{ text:"-/#$%>", chars:"<&!§8("}, paused: true});
-      el.addEventListener("mouseenter", () => tween.play());
-      el.addEventListener("mouseleave", () => tween.reverse());
+      const trigger = el.closest(".title-line");
+      trigger.addEventListener("mouseenter", () => {
+        gsap.killTweensOf(el);
+        gsap.to(el, { duration: 0.8, scrambleText: { text: "-/#$%>", chars: "<&!§8(" }, overwrite: true });
+      });
+      trigger.addEventListener("mouseleave", () => {
+        gsap.killTweensOf(el);
+        gsap.to(el, { duration: 0.5, scrambleText: { text: "guessing.", chars: "<&!§8(" }, overwrite: true });
+      });
     })();
   }, []);
 
@@ -74,7 +80,8 @@ export default function Page() {
           <span className="landing-brand">RentSignal</span>
           <div className="landing-hero__eyebrow">California Rent Intelligence</div>
           <h1 className="landing-hero__title">
-            Stop <span className="scramble-word">guessing.</span><br />Start comparing.
+            <span className="title-line">Stop <span className="scramble-word">guessing.</span></span>
+            <span className="title-line">Start comparing.</span>
           </h1>
           <p className="landing-hero__subtitle">
             Compare rent affordability across California cities using real

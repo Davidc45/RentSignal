@@ -80,8 +80,11 @@
   color: var(--ink);
 }
 
+.title-line {
+  display: block;
+}
+
 .scramble-word {
-  display: inline;
   color: var(--accent);
   cursor: default;
 }
