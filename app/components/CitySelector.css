@@ -30,9 +30,9 @@
   align-items: center;
   gap: 6px;
   padding: 6px 12px;
-  background: #1e1b4b;
-  border: 1px solid #3730a3;
-  color: #c7d2fe;
+  background: rgba(96, 165, 250, 0.08);
+  border: 1px solid rgba(96, 165, 250, 0.25);
+  color: #60a5fa;
   font-size: 0.875rem;
   font-weight: 500;
   border-radius: 9999px;
@@ -42,13 +42,13 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #818cf8;
+  background: #60a5fa;
 }
 
 .city-chip__remove {
   background: none;
   border: none;
-  color: #818cf8;
+  color: rgba(96, 165, 250, 0.5);
   cursor: pointer;
   font-size: 1rem;
   line-height: 1;
@@ -58,7 +58,7 @@
 }
 
 .city-chip__remove:hover {
-  color: #c7d2fe;
+  color: #60a5fa;
 }
 
 .city-selector__dropdown-wrapper {
@@ -78,8 +78,8 @@
 }
 
 .city-selector__input-box--open {
-  border-color: #818cf8;
-  box-shadow: 0 0 0 3px #1e1b4b;
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
 }
 
 .city-selector__input-box--disabled {
@@ -132,11 +132,11 @@
   top: calc(100% + 4px);
   left: 0;
   right: 0;
-  background: rgba(13, 18, 36, 0.95);
+  background: rgba(8, 10, 31, 0.97);
   border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(20px);
   border-radius: 10px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
   overflow: hidden;
 }
 
@@ -167,8 +167,8 @@
 }
 
 .city-selector__option--highlighted {
-  background: #1e1b4b;
-  color: #c7d2fe;
+  background: rgba(255, 255, 255, 0.07);
+  color: #f0f0f0;
 }
 
 .city-selector__pin-icon {
