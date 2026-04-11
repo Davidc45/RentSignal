@@ -1,0 +1,498 @@
+{
+  "alameda": {
+    "name": "Alameda",
+    "medianRent": 2200,
+    "rentRange": { "low": 1800, "high": 2700 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "anaheim": {
+    "name": "Anaheim",
+    "medianRent": 1900,
+    "rentRange": { "low": 1550, "high": 2350 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "antioch": {
+    "name": "Antioch",
+    "medianRent": 1650,
+    "rentRange": { "low": 1350, "high": 2000 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "bakersfield": {
+    "name": "Bakersfield",
+    "medianRent": 1050,
+    "rentRange": { "low": 850, "high": 1300 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "berkeley": {
+    "name": "Berkeley",
+    "medianRent": 2700,
+    "rentRange": { "low": 2100, "high": 3400 },
+    "trend": "Rising",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "burbank": {
+    "name": "Burbank",
+    "medianRent": 1900,
+    "rentRange": { "low": 1550, "high": 2400 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "chula vista": {
+    "name": "Chula Vista",
+    "medianRent": 1950,
+    "rentRange": { "low": 1600, "high": 2400 },
+    "trend": "Rising",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "compton": {
+    "name": "Compton",
+    "medianRent": 1450,
+    "rentRange": { "low": 1150, "high": 1800 },
+    "trend": "Rising",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "concord": {
+    "name": "Concord",
+    "medianRent": 1900,
+    "rentRange": { "low": 1550, "high": 2350 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "corona": {
+    "name": "Corona",
+    "medianRent": 1900,
+    "rentRange": { "low": 1550, "high": 2350 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "costa mesa": {
+    "name": "Costa Mesa",
+    "medianRent": 2100,
+    "rentRange": { "low": 1700, "high": 2600 },
+    "trend": "Rising",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "daly city": {
+    "name": "Daly City",
+    "medianRent": 2200,
+    "rentRange": { "low": 1800, "high": 2700 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "el monte": {
+    "name": "El Monte",
+    "medianRent": 1400,
+    "rentRange": { "low": 1100, "high": 1750 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "elk grove": {
+    "name": "Elk Grove",
+    "medianRent": 1700,
+    "rentRange": { "low": 1400, "high": 2100 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "escondido": {
+    "name": "Escondido",
+    "medianRent": 1750,
+    "rentRange": { "low": 1400, "high": 2150 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "fontana": {
+    "name": "Fontana",
+    "medianRent": 1600,
+    "rentRange": { "low": 1300, "high": 2000 },
+    "trend": "Rising",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "fremont": {
+    "name": "Fremont",
+    "medianRent": 2500,
+    "rentRange": { "low": 2000, "high": 3100 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "fresno": {
+    "name": "Fresno",
+    "medianRent": 1150,
+    "rentRange": { "low": 900, "high": 1450 },
+    "trend": "Rising",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "fullerton": {
+    "name": "Fullerton",
+    "medianRent": 1800,
+    "rentRange": { "low": 1450, "high": 2250 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "garden grove": {
+    "name": "Garden Grove",
+    "medianRent": 1750,
+    "rentRange": { "low": 1400, "high": 2200 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "glendale": {
+    "name": "Glendale",
+    "medianRent": 1950,
+    "rentRange": { "low": 1600, "high": 2450 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "hayward": {
+    "name": "Hayward",
+    "medianRent": 2100,
+    "rentRange": { "low": 1700, "high": 2600 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "huntington beach": {
+    "name": "Huntington Beach",
+    "medianRent": 2200,
+    "rentRange": { "low": 1800, "high": 2750 },
+    "trend": "Rising",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "inglewood": {
+    "name": "Inglewood",
+    "medianRent": 1700,
+    "rentRange": { "low": 1350, "high": 2100 },
+    "trend": "Rising",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "irvine": {
+    "name": "Irvine",
+    "medianRent": 2600,
+    "rentRange": { "low": 2100, "high": 3200 },
+    "trend": "Rising",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "lancaster": {
+    "name": "Lancaster",
+    "medianRent": 1350,
+    "rentRange": { "low": 1050, "high": 1700 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "long beach": {
+    "name": "Long Beach",
+    "medianRent": 1900,
+    "rentRange": { "low": 1550, "high": 2400 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "los angeles": {
+    "name": "Los Angeles",
+    "medianRent": 2100,
+    "rentRange": { "low": 1600, "high": 2800 },
+    "trend": "Rising",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "modesto": {
+    "name": "Modesto",
+    "medianRent": 1300,
+    "rentRange": { "low": 1050, "high": 1600 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "moreno valley": {
+    "name": "Moreno Valley",
+    "medianRent": 1400,
+    "rentRange": { "low": 1100, "high": 1750 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "oakland": {
+    "name": "Oakland",
+    "medianRent": 2400,
+    "rentRange": { "low": 1900, "high": 3000 },
+    "trend": "Rising",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "oceanside": {
+    "name": "Oceanside",
+    "medianRent": 2000,
+    "rentRange": { "low": 1650, "high": 2500 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "ontario": {
+    "name": "Ontario",
+    "medianRent": 1650,
+    "rentRange": { "low": 1300, "high": 2050 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "orange": {
+    "name": "Orange",
+    "medianRent": 1950,
+    "rentRange": { "low": 1600, "high": 2450 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "oxnard": {
+    "name": "Oxnard",
+    "medianRent": 1800,
+    "rentRange": { "low": 1450, "high": 2250 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "palmdale": {
+    "name": "Palmdale",
+    "medianRent": 1400,
+    "rentRange": { "low": 1100, "high": 1750 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "pasadena": {
+    "name": "Pasadena",
+    "medianRent": 2000,
+    "rentRange": { "low": 1600, "high": 2550 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "pomona": {
+    "name": "Pomona",
+    "medianRent": 1600,
+    "rentRange": { "low": 1250, "high": 2000 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "rancho cucamonga": {
+    "name": "Rancho Cucamonga",
+    "medianRent": 1850,
+    "rentRange": { "low": 1500, "high": 2300 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "rialto": {
+    "name": "Rialto",
+    "medianRent": 1550,
+    "rentRange": { "low": 1250, "high": 1950 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "richmond": {
+    "name": "Richmond",
+    "medianRent": 1700,
+    "rentRange": { "low": 1350, "high": 2100 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "riverside": {
+    "name": "Riverside",
+    "medianRent": 1600,
+    "rentRange": { "low": 1300, "high": 2000 },
+    "trend": "Rising",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "roseville": {
+    "name": "Roseville",
+    "medianRent": 1700,
+    "rentRange": { "low": 1400, "high": 2100 },
+    "trend": "Rising",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "sacramento": {
+    "name": "Sacramento",
+    "medianRent": 1650,
+    "rentRange": { "low": 1300, "high": 2050 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "salinas": {
+    "name": "Salinas",
+    "medianRent": 1900,
+    "rentRange": { "low": 1550, "high": 2400 },
+    "trend": "Rising",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "san bernardino": {
+    "name": "San Bernardino",
+    "medianRent": 1250,
+    "rentRange": { "low": 1000, "high": 1600 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "san diego": {
+    "name": "San Diego",
+    "medianRent": 2350,
+    "rentRange": { "low": 1900, "high": 2950 },
+    "trend": "Rising",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "san francisco": {
+    "name": "San Francisco",
+    "medianRent": 3200,
+    "rentRange": { "low": 2500, "high": 4100 },
+    "trend": "Rising",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "san jose": {
+    "name": "San Jose",
+    "medianRent": 2600,
+    "rentRange": { "low": 2100, "high": 3300 },
+    "trend": "Rising",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "san mateo": {
+    "name": "San Mateo",
+    "medianRent": 2800,
+    "rentRange": { "low": 2200, "high": 3500 },
+    "trend": "Rising",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "santa ana": {
+    "name": "Santa Ana",
+    "medianRent": 1650,
+    "rentRange": { "low": 1300, "high": 2050 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "santa clara": {
+    "name": "Santa Clara",
+    "medianRent": 2750,
+    "rentRange": { "low": 2200, "high": 3450 },
+    "trend": "Rising",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "santa clarita": {
+    "name": "Santa Clarita",
+    "medianRent": 2000,
+    "rentRange": { "low": 1650, "high": 2500 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "santa rosa": {
+    "name": "Santa Rosa",
+    "medianRent": 1900,
+    "rentRange": { "low": 1550, "high": 2400 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "simi valley": {
+    "name": "Simi Valley",
+    "medianRent": 2100,
+    "rentRange": { "low": 1700, "high": 2600 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "stockton": {
+    "name": "Stockton",
+    "medianRent": 1350,
+    "rentRange": { "low": 1050, "high": 1700 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "sunnyvale": {
+    "name": "Sunnyvale",
+    "medianRent": 2900,
+    "rentRange": { "low": 2300, "high": 3600 },
+    "trend": "Rising",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "thousand oaks": {
+    "name": "Thousand Oaks",
+    "medianRent": 2200,
+    "rentRange": { "low": 1800, "high": 2750 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "torrance": {
+    "name": "Torrance",
+    "medianRent": 1950,
+    "rentRange": { "low": 1600, "high": 2450 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "vallejo": {
+    "name": "Vallejo",
+    "medianRent": 1500,
+    "rentRange": { "low": 1200, "high": 1900 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "victorville": {
+    "name": "Victorville",
+    "medianRent": 1300,
+    "rentRange": { "low": 1050, "high": 1650 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  },
+  "visalia": {
+    "name": "Visalia",
+    "medianRent": 1100,
+    "rentRange": { "low": 850, "high": 1400 },
+    "trend": "Flat",
+    "bedrooms": 1,
+    "source": "Census ACS 2024"
+  }
+}
