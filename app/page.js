@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { animate, stagger } from "motion/react";
 import CitySelector from "./components/CitySelector";
 import HeroCity from "./components/HeroCity";
+import AppSyncMarketSnapshotTest from "./components/AppSyncMarketSnapshotTest";
 import "./landing.css";
 
 function FeatureCards({ cards }) {
@@ -157,6 +158,8 @@ export default function Page() {
           <FeatureCards cards={FEATURE_CARDS} />
         </section>
       </div>
+
+      <AppSyncMarketSnapshotTest />
 
       <footer className="landing-footer">
         <span className="landing-footer__brand">RentSignal</span>
