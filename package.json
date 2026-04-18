@@ -7,10 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:appsync:live": "cross-env RUN_APPSYNC_LIVE=1 vitest run lib/api/marketSnapshot.test.js"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.2",
+    "aws-amplify": "^6.16.4",
     "chart.js": "^4.5.1",
     "framer-motion": "^12.35.0",
     "geist": "^1.7.0",
@@ -29,12 +33,14 @@
     "@types/react": "19.2.14",
     "@types/react-dom": "^19.2.3",
     "autoprefixer": "^10.4.27",
+    "cross-env": "^10.1.0",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "eslint-config-prettier": "^10.1.8",
     "postcss": "^8.5.8",
     "prettier": "^3.8.1",
     "tailwindcss": "^4.2.1",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.4"
   }
 }

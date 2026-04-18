@@ -4,6 +4,9 @@ import { useState, useEffect, useRef } from "react";
 import { animate, stagger } from "motion/react";
 import CitySelector from "./components/CitySelector";
 import HeroCity from "./components/HeroCity";
+import { useMarketSnapshot } from "../lib/hooks/useMarketSnapshot";
+import { displayCityToCitySlug } from "../lib/citySlug";
+import { snapshotToPreviewCard } from "../lib/mapSnapshotToPreviewCard";
 import "./landing.css";
 
 function FeatureCards({ cards }) {
@@ -53,6 +56,13 @@ const PREVIEW_CARDS = [
 
 export default function Page() {
   const [selectedCities, setSelectedCities] = useState([]);
+  const [annualIncome, setAnnualIncome] = useState("70000");
+  const [bedrooms, setBedrooms] = useState(1);
+  const { results, status, error, params, fetchComparison, clear } = useMarketSnapshot();
+
+  useEffect(() => {
+    clear();
+  }, [selectedCities, clear]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -73,6 +83,28 @@ export default function Page() {
     })();
   }, []);
 
+  const handleCompare = () => {
+    if (selectedCities.length === 0) return;
+    const income = Math.max(0, Math.floor(Number(annualIncome) || 0));
+    const br = Math.min(4, Math.max(0, Math.floor(Number(bedrooms)) || 1));
+    const citySlugs = selectedCities.map(displayCityToCitySlug);
+    fetchComparison({ citySlugs, income, bedrooms: br });
+  };
+
+  const liveCards =
+    status === "succeeded" && results.length > 0
+      ? results.map((snap, i) =>
+          snapshotToPreviewCard(snap, {
+            highlight: results.length === 1 ? true : i === Math.floor(results.length / 2),
+          })
+        )
+      : null;
+
+  const caption =
+    liveCards && params
+      ? `Live comparison · $${Number(params.income).toLocaleString("en-US")} annual income · ${params.bedrooms} bedroom${params.bedrooms === 1 ? "" : "s"}`
+      : "Sample comparison · $70k annual income · 1 Bedroom";
+
   return (
     <div className="landing">
       <section className="landing-hero">
@@ -89,11 +121,36 @@ export default function Page() {
           </p>
           <div className="landing-hero__search">
             <CitySelector selectedCities={selectedCities} onCitiesChange={setSelectedCities} maxCities={3} />
+            <div className="landing-hero__params">
+              <div className="landing-hero__field">
+                <label htmlFor="annual-income">Annual income ($)</label>
+                <input
+                  id="annual-income"
+                  type="number"
+                  min={0}
+                  step={1000}
+                  value={annualIncome}
+                  onChange={(e) => setAnnualIncome(e.target.value)}
+                />
+              </div>
+              <div className="landing-hero__field">
+                <label htmlFor="bedrooms">Bedrooms</label>
+                <select id="bedrooms" value={bedrooms} onChange={(e) => setBedrooms(Number(e.target.value))}>
+                  <option value={0}>Studio</option>
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                  <option value={4}>4+</option>
+                </select>
+              </div>
+            </div>
             <button
-              className={`landing-hero__search-btn ${selectedCities.length === 0 ? "landing-hero__search-btn--disabled" : ""}`}
-              disabled={selectedCities.length === 0}
+              type="button"
+              className={`landing-hero__search-btn ${selectedCities.length === 0 || status === "loading" ? "landing-hero__search-btn--disabled" : ""}`}
+              disabled={selectedCities.length === 0 || status === "loading"}
+              onClick={handleCompare}
             >
-              Compare
+              {status === "loading" ? "Loading…" : "Compare"}
               <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
@@ -107,21 +164,34 @@ export default function Page() {
       </section>
 
       <section className="landing-preview">
-        <div className="landing-preview__inner">
-          {PREVIEW_CARDS.map((card) => (
+        {status === "loading" && (
+          <div className="landing-preview__message" role="status">
+            Fetching live market snapshots for {selectedCities.join(", ")}…
+          </div>
+        )}
+        {status === "failed" && error && (
+          <div className="landing-preview__message landing-preview__error" role="alert">
+            {error}
+          </div>
+        )}
+        <div className={`landing-preview__inner${liveCards ? " landing-preview__inner--live" : ""}`}>
+          {(liveCards || PREVIEW_CARDS).map((card) => (
             <div
               key={card.city}
               className={`landing-preview__card${card.highlight ? " landing-preview__card--highlight" : ""}`}
             >
               <div className="landing-preview__city">{card.city}</div>
               <div className={`landing-preview__badge landing-preview__badge--${card.badgeClass}`}>{card.badge}</div>
-              <div className="landing-preview__rent">{card.rent}<span>/mo</span></div>
+              <div className="landing-preview__rent">
+                {card.rent}
+                <span>/mo</span>
+              </div>
               <div className={`landing-preview__trend landing-preview__trend--${card.trendClass}`}>{card.trend}</div>
               <div className="landing-preview__rule">{card.rule}</div>
             </div>
           ))}
         </div>
-        <p className="landing-preview__caption">Sample comparison · $70k annual income · 1 Bedroom</p>
+        <p className="landing-preview__caption">{caption}</p>
       </section>
 
       <section className="landing-stats">
