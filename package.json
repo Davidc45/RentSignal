@@ -13,7 +13,9 @@
     "test:appsync:live": "cross-env RUN_APPSYNC_LIVE=1 vitest run lib/api/marketSnapshot.test.js"
   },
   "dependencies": {
+    "@react-google-maps/api": "^2.20.8",
     "@reduxjs/toolkit": "^2.11.2",
+    "@vis.gl/react-google-maps": "^1.8.3",
     "aws-amplify": "^6.16.4",
     "chart.js": "^4.5.1",
     "framer-motion": "^12.35.0",
