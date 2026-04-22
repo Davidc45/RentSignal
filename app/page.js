@@ -6,9 +6,7 @@ import { animate, stagger } from "motion/react";
 import CitySelector from "./components/CitySelector";
 import HeroCity from "./components/HeroCity";
 import { fetchCities } from "./features/cities/citiesThunks";
-import { selectAllCities } from "./features/cities/acsSelectors";
-import { fetchCityTrends } from "./features/cityTrends/cityTrendsThunks";
-import { selectAllCityTrends } from "./features/cityTrends/zillowSelectors";
+import { selectAllCities } from "./features/cities/selectors";
 import CompareChart from "./components/CompareChart";
 import "./landing.css";
 
@@ -17,6 +15,7 @@ function FeatureCards({ cards }) {
 
   useEffect(() => {
     if (!ref.current) return;
+
     const items = ref.current.querySelectorAll(".landing-feature-card");
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -35,6 +34,7 @@ function FeatureCards({ cards }) {
       },
       { threshold: 0.2 }
     );
+
     observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
@@ -85,7 +85,6 @@ export default function Page() {
 
   const dispatch = useDispatch();
   const cities = useSelector(selectAllCities);
-  const cityTrends = useSelector(selectAllCityTrends);
 
   const previewCityNames =
     selectedCities.length > 0
@@ -95,11 +94,10 @@ export default function Page() {
   const previewCards = previewCityNames
     .map((targetName) => {
       const city = cities.find((c) => c.name === targetName);
-      const trendData = cityTrends.find((t) => t.name === targetName);
 
       if (!city) return null;
 
-      const trend = trendData?.trend ?? "Flat";
+      const trend = city.trend ?? "Flat";
 
       return {
         city: city.name,
@@ -135,7 +133,7 @@ export default function Page() {
             : trend === "Falling"
             ? "down"
             : "flat",
-        rule: "GraphQL test data",
+        rule: "ACS median rent",
         highlight:
           selectedCities.length > 0
             ? city.name === selectedCities[0]
@@ -146,10 +144,6 @@ export default function Page() {
 
   useEffect(() => {
     dispatch(fetchCities());
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(fetchCityTrends());
   }, [dispatch]);
 
   const handleCompareClick = () => {
@@ -296,7 +290,9 @@ export default function Page() {
           ))}
         </div>
         <p className="landing-preview__caption">
-          Sample comparison · $70k annual income · 1 Bedroom
+          {selectedCities.length > 0
+            ? `Selected cities: ${selectedCities.join(" · ")}`
+            : "Sample comparison · Orange County cities"}
         </p>
       </section>
 

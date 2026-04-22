@@ -3,22 +3,31 @@ export const GET_CITIES = `
     cities {
       id
       name
-      medianRent
       geoId
-    }
-  }
-`;
-
-export const GET_CITY_TRENDS = `
-  query GetCityTrends {
-    cityTrends {
-      id
-      name
+      medianRent
       latestRent
       previousRent
       monthOverMonthPct
       trend
       lastUpdated
+      sourceNameFromCsv
+    }
+  }
+`;
+
+export const GET_CITY = `
+  query GetCity($name: String!) {
+    city(name: $name) {
+      id
+      name
+      geoId
+      medianRent
+      latestRent
+      previousRent
+      monthOverMonthPct
+      trend
+      lastUpdated
+      sourceNameFromCsv
     }
   }
 `;

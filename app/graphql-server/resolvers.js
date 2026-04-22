@@ -1,88 +1,58 @@
+import { fetchOrangeCountyCitiesFromACS } from "./censusService.js";
 import { fetchOrangeCountyCityTrendsFromZillow } from "./zillowService.js";
-
-const ACS_BASE_URL = "https://api.census.gov/data/2024/acs/acs5";
-const MEDIAN_GROSS_RENT_VAR = "B25064_001E";
-const API_KEY = "1b8a6b5b0d8e9ed178a98a2001f9e81e93188343";
-
-const ORANGE_COUNTY_CITY_NAMES = new Set([
-  "Aliso Viejo city, California",
-  "Anaheim city, California",
-  "Brea city, California",
-  "Buena Park city, California",
-  "Costa Mesa city, California",
-  "Cypress city, California",
-  "Dana Point city, California",
-  "Fountain Valley city, California",
-  "Fullerton city, California",
-  "Garden Grove city, California",
-  "Huntington Beach city, California",
-  "Irvine city, California",
-  "La Habra city, California",
-  "La Palma city, California",
-  "Laguna Beach city, California",
-  "Laguna Hills city, California",
-  "Laguna Niguel city, California",
-  "Laguna Woods city, California",
-  "Lake Forest city, California",
-  "Los Alamitos city, California",
-  "Mission Viejo city, California",
-  "Newport Beach city, California",
-  "Orange city, California",
-  "Placentia city, California",
-  "Rancho Santa Margarita city, California",
-  "San Clemente city, California",
-  "San Juan Capistrano city, California",
-  "Santa Ana city, California",
-  "Seal Beach city, California",
-  "Stanton city, California",
-  "Tustin city, California",
-  "Villa Park city, California",
-  "Westminster city, California",
-  "Yorba Linda city, California",
-]);
 
 export const resolvers = {
   Query: {
     cities: async () => {
-      const url =
-        `${ACS_BASE_URL}?get=NAME,${MEDIAN_GROSS_RENT_VAR}` +
-        `&for=place:*&in=state:06&key=${API_KEY}`;
+      const [acsCities, zillowCities] = await Promise.all([
+        fetchOrangeCountyCitiesFromACS(),
+        fetchOrangeCountyCityTrendsFromZillow(),
+      ]);
 
-      const res = await fetch(url);
-      const text = await res.text();
-
-      if (!res.ok) {
-        throw new Error(`Census API request failed: ${res.status} | ${text}`);
-      }
-
-      const data = JSON.parse(text);
-      const [, ...rows] = data;
-
-      return rows
-        .map((row) => ({
-          id: `${row[2]}-${row[3]}`,
-          name: row[0].replace(" city, California", ""),
-          fullName: row[0],
-          medianRent: row[1] === "-666666666" ? null : Number(row[1]),
-          geoId: `${row[2]}-${row[3]}`,
-        }))
-        .filter((city) => ORANGE_COUNTY_CITY_NAMES.has(city.fullName))
-        .map(({ fullName, ...city }) => city)
-        .sort((a, b) => a.name.localeCompare(b.name));
-    },
-
-    cityTrends: async () => {
-      return await fetchOrangeCountyCityTrendsFromZillow();
-    },
-
-    cityTrend: async (_, { name }) => {
-      const data = await fetchOrangeCountyCityTrendsFromZillow();
-
-      return (
-        data.find(
-          (city) => city.name.toLowerCase() === name.toLowerCase()
-        ) || null
+      const zillowMap = new Map(
+        zillowCities.map((city) => [city.name.toLowerCase(), city])
       );
+
+      return acsCities.map((city) => {
+        const trendData = zillowMap.get(city.name.toLowerCase());
+
+        return {
+          ...city,
+          latestRent: trendData?.latestRent ?? null,
+          previousRent: trendData?.previousRent ?? null,
+          monthOverMonthPct: trendData?.monthOverMonthPct ?? null,
+          trend: trendData?.trend ?? null,
+          lastUpdated: trendData?.lastUpdated ?? null,
+          sourceNameFromCsv: trendData?.sourceNameFromCsv ?? null,
+        };
+      });
+    },
+
+    city: async (_, { name }) => {
+      const [acsCities, zillowCities] = await Promise.all([
+        fetchOrangeCountyCitiesFromACS(),
+        fetchOrangeCountyCityTrendsFromZillow(),
+      ]);
+
+      const baseCity = acsCities.find(
+        (city) => city.name.toLowerCase() === name.toLowerCase()
+      );
+
+      if (!baseCity) return null;
+
+      const trendData = zillowCities.find(
+        (city) => city.name.toLowerCase() === name.toLowerCase()
+      );
+
+      return {
+        ...baseCity,
+        latestRent: trendData?.latestRent ?? null,
+        previousRent: trendData?.previousRent ?? null,
+        monthOverMonthPct: trendData?.monthOverMonthPct ?? null,
+        trend: trendData?.trend ?? null,
+        lastUpdated: trendData?.lastUpdated ?? null,
+        sourceNameFromCsv: trendData?.sourceNameFromCsv ?? null,
+      };
     },
   },
 };

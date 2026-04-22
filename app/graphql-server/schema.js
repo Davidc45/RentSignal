@@ -1,25 +1,22 @@
 export const typeDefs = `#graphql
   type City {
+    #Census ACS fields
     id: ID!
     name: String!
-    medianRent: Int
     geoId: String!
-  }
+    medianRent: Int
 
-  type CityTrend {
-    id: ID!
-    name: String!
-    sourceNameFromCsv: String
+    # Zillow trend fields
     latestRent: Float
     previousRent: Float
     monthOverMonthPct: Float
-    trend: String!
+    trend: String
     lastUpdated: String
+    sourceNameFromCsv: String
   }
 
   type Query {
     cities: [City!]!
-    cityTrends: [CityTrend!]!
-    cityTrend(name: String!): CityTrend
+    city(name: String!): City
   }
 `;

@@ -1,0 +1,42 @@
+const ORANGE_COUNTY_CITY_BASE_NAMES = [
+  "Aliso Viejo",
+  "Anaheim",
+  "Brea",
+  "Buena Park",
+  "Costa Mesa",
+  "Cypress",
+  "Dana Point",
+  "Fountain Valley",
+  "Fullerton",
+  "Garden Grove",
+  "Huntington Beach",
+  "Irvine",
+  "La Habra",
+  "La Palma",
+  "Laguna Beach",
+  "Laguna Hills",
+  "Laguna Niguel",
+  "Laguna Woods",
+  "Lake Forest",
+  "Los Alamitos",
+  "Mission Viejo",
+  "Newport Beach",
+  "Orange",
+  "Placentia",
+  "Rancho Santa Margarita",
+  "San Clemente",
+  "San Juan Capistrano",
+  "Santa Ana",
+  "Seal Beach",
+  "Stanton",
+  "Tustin",
+  "Villa Park",
+  "Westminster",
+  "Yorba Linda",
+];
+
+export const ORANGE_COUNTY_CITIES = new Set(ORANGE_COUNTY_CITY_BASE_NAMES);
+
+export const ORANGE_COUNTY_ACS_CITY_NAMES = new Set(
+  ORANGE_COUNTY_CITY_BASE_NAMES.map((city) => `${city} city, California`)
+);

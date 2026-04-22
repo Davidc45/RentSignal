@@ -1,43 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { parse } from "csv-parse/sync";
-
-const ORANGE_COUNTY_CITIES = new Set([
-  "Aliso Viejo",
-  "Anaheim",
-  "Brea",
-  "Buena Park",
-  "Costa Mesa",
-  "Cypress",
-  "Dana Point",
-  "Fountain Valley",
-  "Fullerton",
-  "Garden Grove",
-  "Huntington Beach",
-  "Irvine",
-  "La Habra",
-  "La Palma",
-  "Laguna Beach",
-  "Laguna Hills",
-  "Laguna Niguel",
-  "Laguna Woods",
-  "Lake Forest",
-  "Los Alamitos",
-  "Mission Viejo",
-  "Newport Beach",
-  "Orange",
-  "Placentia",
-  "Rancho Santa Margarita",
-  "San Clemente",
-  "San Juan Capistrano",
-  "Santa Ana",
-  "Seal Beach",
-  "Stanton",
-  "Tustin",
-  "Villa Park",
-  "Westminster",
-  "Yorba Linda",
-]);
+import { ORANGE_COUNTY_CITIES } from "./orangeCountyCities.js";
 
 function getDateColumns(row) {
   return Object.keys(row).filter((key) => /^\d{4}-\d{2}-\d{2}$/.test(key));
@@ -102,8 +66,7 @@ export async function fetchOrangeCountyCityTrendsFromZillow() {
         }))
         .filter((item) => item.value != null && !Number.isNaN(item.value));
 
-      if (valuePairs.length < 2) return null;
-      if (!cityName) return null;
+      if (!cityName || valuePairs.length < 2) return null;
 
       if (stateName && stateName !== "CA" && stateName !== "California") {
         return null;
