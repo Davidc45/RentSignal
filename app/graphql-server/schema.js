@@ -1,4 +1,3 @@
-// Defines GraphQL schema for cities, median rent data, and Zillow rent trend data
 export const typeDefs = `#graphql
   type City {
     id: ID!

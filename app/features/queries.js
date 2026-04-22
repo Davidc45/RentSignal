@@ -1,4 +1,3 @@
-//Stores GraphQL queries for fetching data from APIs
 export const GET_CITIES = `
   query GetCities {
     cities {

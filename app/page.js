@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef} from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { animate, stagger } from "motion/react";
 import CitySelector from "./components/CitySelector";
@@ -9,6 +9,7 @@ import { fetchCities } from "./features/cities/citiesThunks";
 import { selectAllCities } from "./features/cities/acsSelectors";
 import { fetchCityTrends } from "./features/cityTrends/cityTrendsThunks";
 import { selectAllCityTrends } from "./features/cityTrends/zillowSelectors";
+import CompareChart from "./components/CompareChart";
 import "./landing.css";
 
 function FeatureCards({ cards }) {
@@ -84,56 +85,64 @@ export default function Page() {
 
   const dispatch = useDispatch();
   const cities = useSelector(selectAllCities);
-  const cityTrends = useSelector(selectAllCityTrends); // Assuming you have a selector for city trends in your Redux store
+  const cityTrends = useSelector(selectAllCityTrends);
 
-const previewCards = ["Aliso Viejo", "Anaheim", "Brea"]
-  .map((targetName) => {
-    const city = cities.find((c) => c.name === targetName);
-    const trendData = cityTrends.find((t) => t.name === targetName);
+  const previewCityNames =
+    selectedCities.length > 0
+      ? selectedCities
+      : ["Aliso Viejo", "Anaheim", "Brea"];
 
-    if (!city) return null;
+  const previewCards = previewCityNames
+    .map((targetName) => {
+      const city = cities.find((c) => c.name === targetName);
+      const trendData = cityTrends.find((t) => t.name === targetName);
 
-    const trend = trendData?.trend ?? "Flat";
+      if (!city) return null;
 
-    return {
-      city: city.name,
-      badge:
-        city.medianRent == null
-          ? "No Data"
-          : city.medianRent <= 2000
-          ? "Affordable"
-          : city.medianRent <= 2600
-          ? "Stretch"
-          : "Not Recommended",
-      badgeClass:
-        city.medianRent == null
-          ? "flat"
-          : city.medianRent <= 2000
-          ? "good"
-          : city.medianRent <= 2600
-          ? "stretch"
-          : "bad",
-      rent:
-        city.medianRent == null
-          ? "N/A"
-          : `$${city.medianRent.toLocaleString()}`,
-      trend:
-        trend === "Rising"
-          ? "↑ Rising"
-          : trend === "Falling"
-          ? "↓ Falling"
-          : "→ Flat",
-      trendClass:
-        trend === "Rising"
-          ? "up"
-          : trend === "Falling"
-          ? "down"
-          : "flat",
-      rule: "GraphQL test data",
-      highlight: city.name === "Anaheim",
-    };
-  })
-  .filter(Boolean);
+      const trend = trendData?.trend ?? "Flat";
+
+      return {
+        city: city.name,
+        badge:
+          city.medianRent == null
+            ? "No Data"
+            : city.medianRent <= 2000
+            ? "Affordable"
+            : city.medianRent <= 2600
+            ? "Stretch"
+            : "Not Recommended",
+        badgeClass:
+          city.medianRent == null
+            ? "flat"
+            : city.medianRent <= 2000
+            ? "good"
+            : city.medianRent <= 2600
+            ? "stretch"
+            : "bad",
+        rent:
+          city.medianRent == null
+            ? "N/A"
+            : `$${city.medianRent.toLocaleString()}`,
+        trend:
+          trend === "Rising"
+            ? "↑ Rising"
+            : trend === "Falling"
+            ? "↓ Falling"
+            : "→ Flat",
+        trendClass:
+          trend === "Rising"
+            ? "up"
+            : trend === "Falling"
+            ? "down"
+            : "flat",
+        rule: "GraphQL test data",
+        highlight:
+          selectedCities.length > 0
+            ? city.name === selectedCities[0]
+            : city.name === "Anaheim",
+      };
+    })
+    .filter(Boolean);
 
   useEffect(() => {
     dispatch(fetchCities());
@@ -143,29 +152,7 @@ const previewCards = ["Aliso Viejo", "Anaheim", "Brea"]
     dispatch(fetchCityTrends());
   }, [dispatch]);
 
-  //Used for debugging to verify that city data is being fetched and stored in Redux correctly. Can be removed in production.
-  // useEffect(() => {
-  //   console.log("Redux GraphQL city data:", cities);
-  // }, [cities]);
-
-  useEffect(() => {
-    if (compareRequested) {
-      console.log("Compare requested for cities:", selectedCities);
-
-      // NEXT STEP:
-      // Once your compare GraphQL thunk is ready, dispatch it here.
-      // Example:
-      // dispatch(fetchGraphqlCityComparison({ cities: selectedCities }));
-
-      setCompareRequested(false);
-    }
-  }, [compareRequested, selectedCities, dispatch]);
-
   const handleCompareClick = () => {
-    console.log("Compare button clicked");
-    console.log("Selected cities:", selectedCities);
-    console.log("Current GraphQL city data in Redux:", cities);
-
     setCompareRequested(true);
   };
 
@@ -242,6 +229,7 @@ const previewCards = ["Aliso Viejo", "Anaheim", "Brea"]
           </p>
           <div className="landing-hero__search">
             <CitySelector
+              cities={cities}
               selectedCities={selectedCities}
               onCitiesChange={setSelectedCities}
               maxCities={3}
@@ -274,6 +262,10 @@ const previewCards = ["Aliso Viejo", "Anaheim", "Brea"]
           <HeroCity />
         </div>
       </section>
+
+      {compareRequested && selectedCities.length > 0 && (
+        <CompareChart cities={cities} selectedCities={selectedCities} />
+      )}
 
       <section className="landing-preview">
         <div className="landing-preview__inner">

@@ -1,10 +1,8 @@
-//Stores GraphQL city data in Redux state, including loading and error status for UI components to consume
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchCities } from "./citiesThunks";
 
 const initialState = {
-  byId: {},
-  allIds: [],
+  items: [],
   status: "idle",
   error: null,
 };
@@ -21,14 +19,7 @@ const citiesSlice = createSlice({
       })
       .addCase(fetchCities.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.error = null;
-        state.byId = {};
-        state.allIds = [];
-
-        action.payload.forEach((city) => {
-          state.byId[city.id] = city;
-          state.allIds.push(city.id);
-        });
+        state.items = action.payload;
       })
       .addCase(fetchCities.rejected, (state, action) => {
         state.status = "failed";
