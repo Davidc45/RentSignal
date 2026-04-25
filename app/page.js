@@ -110,7 +110,6 @@ export default function Page() {
       <section className="landing-hero">
         <div className="landing-hero__left">
           <span className="landing-brand">RentSignal</span>
-          <div className="landing-hero__eyebrow">California Rent Intelligence</div>
           <h1 className="landing-hero__title">
             <span className="title-line">Stop <span className="scramble-word">guessing.</span></span>
             <span className="title-line">Start comparing.</span>
