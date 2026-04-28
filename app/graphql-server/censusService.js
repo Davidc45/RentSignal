@@ -2,7 +2,7 @@ import {
   ACS_BASE_URL,
   MEDIAN_GROSS_RENT_VAR,
   CENSUS_API_KEY,
-} from "./config.js";
+} from "./serverConfig.js";
 import { ORANGE_COUNTY_ACS_CITY_NAMES } from "./orangeCountyCities.js";
 
 export async function fetchOrangeCountyCitiesFromACS() {

@@ -1,4 +1,4 @@
-const GRAPHQL_ENDPOINT = "http://localhost:4000/";
+import { GRAPHQL_ENDPOINT } from "./clientConfig";
 
 export async function graphqlRequest(query, variables = {}) {
   try {
