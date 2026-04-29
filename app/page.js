@@ -6,7 +6,10 @@ import { animate, stagger } from "motion/react";
 import CitySelector from "./components/CitySelector";
 import HeroCity from "./components/HeroCity";
 import { fetchCities } from "./features/cities/citiesThunks";
-import { selectAllCities } from "./features/cities/selectors";
+import {
+  selectAllCities,
+  selectCitiesStatus,
+} from "./features/cities/selectors";
 import CompareChart from "./components/CompareChart";
 import "./landing.css";
 
@@ -79,17 +82,66 @@ const FEATURE_CARDS = [
   },
 ];
 
+const DEFAULT_PREVIEW_CITIES = ["Aliso Viejo", "Anaheim", "Brea"];
+
+function getBadgeInfo(medianRent) {
+  if (medianRent == null) {
+    return { label: "No Data", className: "flat", rank: 99 };
+  }
+
+  if (medianRent <= 2000) {
+    return { label: "Affordable", className: "good", rank: 1 };
+  }
+
+  if (medianRent <= 2600) {
+    return { label: "Stretch", className: "stretch", rank: 2 };
+  }
+
+  return { label: "Not Recommended", className: "bad", rank: 3 };
+}
+
+function getTrendInfo(trend) {
+  if (trend === "Rising") {
+    return { label: "↑ Rising", className: "up" };
+  }
+
+  if (trend === "Falling") {
+    return { label: "↓ Falling", className: "down" };
+  }
+
+  return { label: "→ Flat", className: "flat" };
+}
+
+function buildCityCard(city, highlight = false, ruleLabel = "ACS median rent") {
+  const badge = getBadgeInfo(city.medianRent);
+  const trend = getTrendInfo(city.trend ?? "Flat");
+
+  return {
+    city: city.name,
+    badge: badge.label,
+    badgeClass: badge.className,
+    rent:
+      city.medianRent == null ? "N/A" : `$${city.medianRent.toLocaleString()}`,
+    trend: trend.label,
+    trendClass: trend.className,
+    rule: ruleLabel,
+    highlight,
+    badgeRank: badge.rank,
+    medianRent: city.medianRent,
+  };
+}
+
 export default function Page() {
   const [selectedCities, setSelectedCities] = useState([]);
   const [compareRequested, setCompareRequested] = useState(false);
 
   const dispatch = useDispatch();
   const cities = useSelector(selectAllCities);
+  const citiesStatus = useSelector(selectCitiesStatus);
+  const isCitiesLoading = citiesStatus === "loading";
 
   const previewCityNames =
-    selectedCities.length > 0
-      ? selectedCities
-      : ["Aliso Viejo", "Anaheim", "Brea"];
+    selectedCities.length > 0 ? selectedCities : DEFAULT_PREVIEW_CITIES;
 
   const previewCards = previewCityNames
     .map((targetName) => {
@@ -97,50 +149,36 @@ export default function Page() {
 
       if (!city) return null;
 
-      const trend = city.trend ?? "Flat";
-
-      return {
-        city: city.name,
-        badge:
-          city.medianRent == null
-            ? "No Data"
-            : city.medianRent <= 2000
-            ? "Affordable"
-            : city.medianRent <= 2600
-            ? "Stretch"
-            : "Not Recommended",
-        badgeClass:
-          city.medianRent == null
-            ? "flat"
-            : city.medianRent <= 2000
-            ? "good"
-            : city.medianRent <= 2600
-            ? "stretch"
-            : "bad",
-        rent:
-          city.medianRent == null
-            ? "N/A"
-            : `$${city.medianRent.toLocaleString()}`,
-        trend:
-          trend === "Rising"
-            ? "↑ Rising"
-            : trend === "Falling"
-            ? "↓ Falling"
-            : "→ Flat",
-        trendClass:
-          trend === "Rising"
-            ? "up"
-            : trend === "Falling"
-            ? "down"
-            : "flat",
-        rule: "ACS median rent",
-        highlight:
-          selectedCities.length > 0
-            ? city.name === selectedCities[0]
-            : city.name === "Anaheim",
-      };
+      return buildCityCard(
+        city,
+        selectedCities.length > 0
+          ? city.name === selectedCities[0]
+          : city.name === "Anaheim",
+        "ACS median rent"
+      );
     })
     .filter(Boolean);
+
+  const mostExpensiveCards = [...cities]
+    .filter((city) => city.medianRent != null)
+    .sort((a, b) => b.medianRent - a.medianRent)
+    .slice(0, 3)
+    .map((city) => buildCityCard(city, false, "Highest median rent"));
+
+  const bestValueCards = [...cities]
+    .filter((city) => city.medianRent != null)
+    .sort((a, b) => {
+      const badgeA = getBadgeInfo(a.medianRent);
+      const badgeB = getBadgeInfo(b.medianRent);
+
+      if (badgeA.rank !== badgeB.rank) {
+        return badgeA.rank - badgeB.rank;
+      }
+
+      return a.medianRent - b.medianRent;
+    })
+    .slice(0, 3)
+    .map((city) => buildCityCard(city, false, "Best value pick"));
 
   useEffect(() => {
     dispatch(fetchCities());
@@ -221,6 +259,91 @@ export default function Page() {
             Compare rent affordability across California cities using real
             government data — not estimates from listing sites.
           </p>
+
+          <section className="landing-insights">
+            <div className="landing-insights__group">
+              <div className="landing-insights__header">
+                <h2 className="landing-insights__title">Top 3 Most Expensive</h2>
+                <p className="landing-insights__subtitle">
+                  Highest median rent among supported Orange County cities
+                </p>
+              </div>
+
+              <div className="landing-preview__inner landing-preview__inner--live">
+                {isCitiesLoading ? (
+                  <div className="landing-loading-card">
+                    <div className="landing-loading-card__spinner" />
+                    <p className="landing-loading-card__text">
+                      Loading ACS data...
+                    </p>
+                  </div>
+                ) : (
+                  mostExpensiveCards.map((card) => (
+                    <div key={card.city} className="landing-preview__card">
+                      <div className="landing-preview__city">{card.city}</div>
+                      <div
+                        className={`landing-preview__badge landing-preview__badge--${card.badgeClass}`}
+                      >
+                        {card.badge}
+                      </div>
+                      <div className="landing-preview__rent">
+                        {card.rent}
+                        <span>/mo</span>
+                      </div>
+                      <div
+                        className={`landing-preview__trend landing-preview__trend--${card.trendClass}`}
+                      >
+                        {card.trend}
+                      </div>
+                      <div className="landing-preview__rule">{card.rule}</div>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+
+            <div className="landing-insights__group">
+              <div className="landing-insights__header">
+                <h2 className="landing-insights__title">Top 3 Best Value</h2>
+                <p className="landing-insights__subtitle">
+                  Best affordability band first, then lowest median rent
+                </p>
+              </div>
+
+              <div className="landing-preview__inner landing-preview__inner--live">
+                {isCitiesLoading ? (
+                  <div className="landing-loading-card">
+                    <div className="landing-loading-card__spinner" />
+                    <p className="landing-loading-card__text">
+                      Loading ACS data...
+                    </p>
+                  </div>
+                ) : (
+                  bestValueCards.map((card) => (
+                    <div key={card.city} className="landing-preview__card">
+                      <div className="landing-preview__city">{card.city}</div>
+                      <div
+                        className={`landing-preview__badge landing-preview__badge--${card.badgeClass}`}
+                      >
+                        {card.badge}
+                      </div>
+                      <div className="landing-preview__rent">
+                        {card.rent}
+                        <span>/mo</span>
+                      </div>
+                      <div
+                        className={`landing-preview__trend landing-preview__trend--${card.trendClass}`}
+                      >
+                        {card.trend}
+                      </div>
+                      <div className="landing-preview__rule">{card.rule}</div>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+          </section>
+
           <div className="landing-hero__search">
             <CitySelector
               cities={cities}
@@ -248,10 +371,12 @@ export default function Page() {
               </svg>
             </button>
           </div>
+
           <p className="landing-hero__note">
             Free · No account needed · Backed by Census ACS + BLS data
           </p>
         </div>
+
         <div className="landing-hero__right">
           <HeroCity />
         </div>
@@ -261,40 +386,40 @@ export default function Page() {
         <CompareChart cities={cities} selectedCities={selectedCities} />
       )}
 
-      <section className="landing-preview">
-        <div className="landing-preview__inner">
-          {previewCards.map((card) => (
-            <div
-              key={card.city}
-              className={`landing-preview__card${
-                card.highlight ? " landing-preview__card--highlight" : ""
-              }`}
-            >
-              <div className="landing-preview__city">{card.city}</div>
+      {compareRequested && selectedCities.length > 0 && (
+        <section className="landing-preview">
+          <div className="landing-preview__inner">
+            {previewCards.map((card) => (
               <div
-                className={`landing-preview__badge landing-preview__badge--${card.badgeClass}`}
+                key={card.city}
+                className={`landing-preview__card${
+                  card.highlight ? " landing-preview__card--highlight" : ""
+                }`}
               >
-                {card.badge}
+                <div className="landing-preview__city">{card.city}</div>
+                <div
+                  className={`landing-preview__badge landing-preview__badge--${card.badgeClass}`}
+                >
+                  {card.badge}
+                </div>
+                <div className="landing-preview__rent">
+                  {card.rent}
+                  <span>/mo</span>
+                </div>
+                <div
+                  className={`landing-preview__trend landing-preview__trend--${card.trendClass}`}
+                >
+                  {card.trend}
+                </div>
+                <div className="landing-preview__rule">{card.rule}</div>
               </div>
-              <div className="landing-preview__rent">
-                {card.rent}
-                <span>/mo</span>
-              </div>
-              <div
-                className={`landing-preview__trend landing-preview__trend--${card.trendClass}`}
-              >
-                {card.trend}
-              </div>
-              <div className="landing-preview__rule">{card.rule}</div>
-            </div>
-          ))}
-        </div>
-        <p className="landing-preview__caption">
-          {selectedCities.length > 0
-            ? `Selected cities: ${selectedCities.join(" · ")}`
-            : "Sample comparison · Orange County cities"}
-        </p>
-      </section>
+            ))}
+          </div>
+          <p className="landing-preview__caption">
+            Selected cities: {selectedCities.join(" · ")}
+          </p>
+        </section>
+      )}
 
       <section className="landing-stats">
         <div className="landing-stat">
