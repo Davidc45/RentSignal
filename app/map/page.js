@@ -1,6 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, {
+  Suspense,
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+} from "react";
 import { useSearchParams } from "next/navigation";
 import { APIProvider, Map, AdvancedMarker, Pin } from "@vis.gl/react-google-maps";
 import { graphqlRequest } from "../api/graphqlApi";
@@ -296,7 +302,7 @@ const geoByName = Object.fromEntries(
   citiesGeo.map((c) => [c.name.toLowerCase(), c])
 );
 
-export default function MapPage() {
+function MapPageContent() {
   const [cityData, setCityData] = useState([]);
   const [compared, setCompared] = useState([]);
   const [detailCity, setDetailCity] = useState(null);
@@ -466,5 +472,13 @@ export default function MapPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function MapPage() {
+  return (
+    <Suspense fallback={<div className="map-layout">Loading map...</div>}>
+      <MapPageContent />
+    </Suspense>
   );
 }
