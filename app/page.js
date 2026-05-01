@@ -12,6 +12,7 @@ import {
   selectCitiesStatus,
 } from "./features/cities/selectors";
 import CompareChart from "./components/CompareChart";
+import AffordabilityChart from "./components/AffordabilityChart";
 import {
   GOOGLE_MAPS_API_KEY,
   GOOGLE_MAPS_MAP_ID,
@@ -1007,6 +1008,11 @@ export default function Page() {
               {compareRequested && selectedCities.length > 0 && (
                 <div className="landing-compare-results">
                   <CompareChart
+                    cities={cities}
+                    selectedCities={selectedCities}
+                  />
+
+                  <AffordabilityChart
                     cities={cities}
                     selectedCities={selectedCities}
                   />
