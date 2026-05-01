@@ -11,6 +11,7 @@ import {
   selectCitiesStatus,
 } from "./features/cities/selectors";
 import CompareChart from "./components/CompareChart";
+import AffordabilityChart from "./components/AffordabilityChart";
 import "./landing.css";
 
 function FeatureCards({ cards }) {
@@ -384,6 +385,10 @@ export default function Page() {
 
       {compareRequested && selectedCities.length > 0 && (
         <CompareChart cities={cities} selectedCities={selectedCities} />
+      )}
+
+      {compareRequested && selectedCities.length > 0 && (
+        <AffordabilityChart cities={cities} selectedCities={selectedCities} />
       )}
 
       {compareRequested && selectedCities.length > 0 && (
