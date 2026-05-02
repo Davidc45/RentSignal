@@ -1652,3 +1652,168 @@
     height: 260px;
   }
 }
+
+/* Shared graph/card styling for compare section charts */
+.chart-card,
+.landing-compare-chart,
+.affordability-chart,
+.rent-trend-chart {
+  width: 100%;
+  padding: 0;
+}
+
+.chart-card__inner,
+.landing-compare-chart__inner,
+.affordability-chart__inner,
+.rent-trend-chart__inner {
+  width: 100%;
+  margin: 0;
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(255, 77, 0, 0.08),
+      transparent 34%
+    ),
+    rgba(8, 8, 8, 0.94);
+  border: 1px solid rgba(255, 77, 0, 0.18);
+  box-shadow:
+    var(--glass-shine),
+    0 10px 30px rgba(0, 0, 0, 0.35);
+  border-radius: var(--radius);
+  padding: 18px;
+}
+
+.chart-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.chart-card__title,
+.affordability-chart__title,
+.rent-trend-chart__title {
+  font-size: 1rem;
+  font-weight: 850;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.chart-card__subtitle,
+.affordability-chart__subtitle,
+.rent-trend-chart__subtitle {
+  margin-top: 6px;
+  font-size: 0.76rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+.chart-card__highlight,
+.affordability-chart__income {
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.chart-card__canvas,
+.landing-compare-chart__canvas,
+.affordability-chart__canvas,
+.rent-trend-chart__canvas {
+  width: 100%;
+  height: 320px;
+  position: relative;
+}
+
+.chart-tooltip,
+.affordability-chart__tooltip,
+.rent-trend-chart__tooltip {
+  background: rgba(8, 8, 8, 0.96);
+  border: 1px solid rgba(255, 77, 0, 0.28);
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+  padding: 12px;
+  min-width: 160px;
+}
+
+.chart-tooltip__title,
+.affordability-chart__tooltip-city,
+.rent-trend-chart__tooltip-date {
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 850;
+  margin: 0 0 8px;
+}
+
+.chart-tooltip__row {
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin: 4px 0 0;
+}
+
+.landing-compare-results {
+  gap: 14px;
+}
+
+.landing-compare-results .landing-compare-chart__inner {
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(255, 77, 0, 0.08),
+      transparent 34%
+    ),
+    rgba(8, 8, 8, 0.94);
+  border: 1px solid rgba(255, 77, 0, 0.18);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow:
+    var(--glass-shine),
+    0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.landing-compare-results .landing-compare-chart__canvas {
+  height: 320px;
+}
+
+/* Make Recharts legends blend with the app */
+.recharts-default-legend {
+  color: var(--ink-soft) !important;
+}
+
+.recharts-legend-item-text {
+  color: var(--ink-soft) !important;
+}
+
+/* Prevent chart text from looking too bright/foreign */
+.recharts-cartesian-axis-tick-value {
+  fill: var(--ink-muted);
+}
+
+@media (max-width: 600px) {
+  .chart-card__inner,
+  .landing-compare-chart__inner,
+  .affordability-chart__inner,
+  .rent-trend-chart__inner {
+    padding: 14px;
+  }
+
+  .chart-card__canvas,
+  .landing-compare-chart__canvas,
+  .affordability-chart__canvas,
+  .rent-trend-chart__canvas,
+  .landing-compare-results .landing-compare-chart__canvas {
+    height: 280px;
+  }
+
+  .chart-card__title,
+  .affordability-chart__title,
+  .rent-trend-chart__title {
+    font-size: 0.92rem;
+  }
+
+  .chart-card__subtitle,
+  .affordability-chart__subtitle,
+  .rent-trend-chart__subtitle {
+    font-size: 0.7rem;
+  }
+}

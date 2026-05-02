@@ -78,7 +78,7 @@ export default function CitySelector({
   return (
     <div className="city-selector">
       <div className="city-selector__header">
-        <label className="city-selector__label">Select Cities to Compare</label>
+        <label className="city-selector__label"></label>
       </div>
 
       {selectedCities.length > 0 && (
