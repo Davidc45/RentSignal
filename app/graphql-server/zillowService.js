@@ -91,6 +91,12 @@ export async function fetchOrangeCountyCityTrendsFromZillow() {
       const latest = valuePairs[valuePairs.length - 1];
       const previous = valuePairs[valuePairs.length - 2];
 
+      const last12 = valuePairs.slice(-12);
+      const rentHistory = last12.map((p) => ({
+        date: p.date,
+        rent: Math.round(p.value),
+      }));
+
       const pct =
         previous.value === 0
           ? null
@@ -105,6 +111,7 @@ export async function fetchOrangeCountyCityTrendsFromZillow() {
         monthOverMonthPct: pct == null ? null : Number(pct.toFixed(2)),
         trend: classifyTrend(pct),
         lastUpdated: latest.date,
+        rentHistory,
       };
     })
     .filter(Boolean)

@@ -1,4 +1,9 @@
 export const typeDefs = `#graphql
+  type RentPoint {
+    date: String!
+    rent: Int!
+  }
+
   type City {
     #Census ACS fields
     id: ID!
@@ -13,6 +18,7 @@ export const typeDefs = `#graphql
     trend: String
     lastUpdated: String
     sourceNameFromCsv: String
+    rentHistory: [RentPoint]
   }
 
   type Query {
