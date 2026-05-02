@@ -11,6 +11,10 @@ export const GET_CITIES = `
       trend
       lastUpdated
       sourceNameFromCsv
+      rentHistory {
+        date
+        rent
+      }
     }
   }
 `;

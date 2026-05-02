@@ -24,6 +24,7 @@ export const resolvers = {
           trend: trendData?.trend ?? null,
           lastUpdated: trendData?.lastUpdated ?? null,
           sourceNameFromCsv: trendData?.sourceNameFromCsv ?? null,
+          rentHistory: trendData?.rentHistory ?? null,
         };
       });
     },
@@ -52,6 +53,7 @@ export const resolvers = {
         trend: trendData?.trend ?? null,
         lastUpdated: trendData?.lastUpdated ?? null,
         sourceNameFromCsv: trendData?.sourceNameFromCsv ?? null,
+        rentHistory: trendData?.rentHistory ?? null,
       };
     },
   },
