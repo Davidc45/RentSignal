@@ -33,7 +33,7 @@
   left: -25%;
   width: 150%;
   height: 150%;
-  border: 2px dotted rgba(96,165,250,0.3);
+  border: 2px dotted rgba(255, 77, 0, 0.3);
   overflow: visible;
   transform: translate3d(0,0,-1px);
   transform-style: preserve-3d;
@@ -45,7 +45,7 @@
   display: block;
   top: 50%;
   left: 50%;
-  background: #60a5fa;
+  background: #FF4D00;
   width: 30px;
   height: 30px;
   cursor: pointer;
@@ -59,21 +59,21 @@
 
 .building:hover {
   transform: rotate3d(0,0,1,900deg) scale3d(1, 1, 4);
-  background: #0ae;
+  background: #ff7a40;
 }
 
 .building:hover > li {
-  background: #0ae;
+  background: #ff7a40;
   opacity: 0.6;
 }
 
 .building:active {
   transform: translateZ(50px) scale3d(1, 1, 4);
-  background: #09c;
+  background: #cc3d00;
 }
 
 .building:active > li {
-  background: #09c;
+  background: #cc3d00;
   opacity: 0.75;
 }
 
@@ -81,15 +81,15 @@
   font-size: 0;
   display: inline-block;
   position: absolute;
-  background: #60a5fa;
+  background: #FF4D00;
   transition: all 0.3s ease-out;
 }
 
-.building .top  { background: rgba(147,197,253,1); width: 30px; height: 30px; transform: translate3d(0,0,30px); }
-.building .west { background: rgba(96,165,250,1);  width: 30px; height: 30px; transform-origin: 0 0; transform: rotate3d(0,1,0,-90deg); }
-.building .east { background: rgba(59,130,246,1);  width: 30px; height: 30px; transform-origin: 100% 0; transform: rotate3d(0,1,0,90deg); }
-.building .north{ background: rgba(96,165,250,1);  width: 30px; height: 30px; transform-origin: 0 0; transform: rotate3d(1,0,0,90deg); }
-.building .south{ background: rgba(37,99,235,1);   width: 30px; height: 30px; transform-origin: 100% 100%; transform: rotate3d(1,0,0,-90deg); }
+.building .top  { background: rgba(255, 140, 80, 1);  width: 30px; height: 30px; transform: translate3d(0,0,30px); }
+.building .west { background: rgba(255, 77, 0, 1);    width: 30px; height: 30px; transform-origin: 0 0; transform: rotate3d(0,1,0,-90deg); }
+.building .east { background: rgba(204, 61, 0, 1);    width: 30px; height: 30px; transform-origin: 100% 0; transform: rotate3d(0,1,0,90deg); }
+.building .north{ background: rgba(255, 77, 0, 1);    width: 30px; height: 30px; transform-origin: 0 0; transform: rotate3d(1,0,0,90deg); }
+.building .south{ background: rgba(153, 46, 0, 1);    width: 30px; height: 30px; transform-origin: 100% 100%; transform: rotate3d(1,0,0,-90deg); }
 
 .block-1  { top: 0;   left: 60%; transform: scaleZ(1.5); }
 .block-2  { top: 0;   left: 30%; transform: scaleZ(2.5); }
@@ -107,7 +107,7 @@
   font-size: 0;
   position: absolute;
   display: block;
-  background: rgba(96,165,250,0.15);
+  background: rgba(255, 77, 0, 0.12);
   width: 200px;
   height: 18px;
   overflow: visible;
@@ -124,7 +124,7 @@
   font-size: 0;
   position: absolute;
   display: block;
-  background: rgba(147,197,253,0.6);
+  background: rgba(255, 140, 80, 0.6);
   width: 4px;
   height: 7px;
   overflow: visible;
@@ -140,7 +140,7 @@
   font-size: 0;
   display: inline-block;
   position: absolute;
-  background: rgba(147,197,253,0.6);
+  background: rgba(255, 140, 80, 0.6);
   transition: all 0.3s ease-out;
 }
 
