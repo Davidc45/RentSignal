@@ -13,6 +13,7 @@ import {
 } from "./features/cities/selectors";
 import CompareChart from "./components/CompareChart";
 import AffordabilityChart from "./components/AffordabilityChart";
+import RentTrendChart from "./components/RentTrendChart";
 import {
   GOOGLE_MAPS_API_KEY,
   GOOGLE_MAPS_MAP_ID,
@@ -1013,6 +1014,11 @@ export default function Page() {
                   />
 
                   <AffordabilityChart
+                    cities={cities}
+                    selectedCities={selectedCities}
+                  />
+
+                  <RentTrendChart
                     cities={cities}
                     selectedCities={selectedCities}
                   />
